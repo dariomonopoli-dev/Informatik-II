@@ -42,7 +42,7 @@ void InsertList(struct Node** head, int val)
 }
 struct Node *groupingLinkedList(struct Node* head)
 {
-        //Initialize first nodes of even and odd lists
+        //Initialize first nodes of even and odd lists - eskere
     struct Node *odd = head; //odd numbers have to be at beginning
     struct Node *even = head->next; //after all the odd elememnts i insert the even ones
 
