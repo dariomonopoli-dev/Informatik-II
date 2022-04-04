@@ -136,19 +136,12 @@ int main()
 	struct Node* head2 = NULL;
 
 
-    // Create linked list from the array s2 (Task 3b)
+    // Create linked list from the strings (arrays of characters) s1 and s2 (Task 3b)
     for (int i = 0; i < s_length; i++) {
         InsertList(&head1, s1[i]);
-    }
-  
-    // Create linked list from the array s2 (Task 3b)
-    for (int j = 0; j < s_length; j++) {
-        InsertList(&head2, s2[j]);
-    }
+        InsertList(&head2, s2[i]);
 
-    //we sort the two linked lists
-    bubbleSort(&head1, s_length);
-    bubbleSort(&head2, s_length);
+    }
 
 	if (checkAnagram(&head1, &head2, s_length))
 		printf("Yes");
