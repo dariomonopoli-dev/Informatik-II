@@ -15,7 +15,7 @@ int LomutoPartition(int A[], int l, int r)
     }
     int temp2 = A[i+1];
     A[i+1] = A[r];
-    A[r] = temp2;
+    A[r] = temp2; //the new pivot is being set
     return (i+1);
 }
 
