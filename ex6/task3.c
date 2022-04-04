@@ -101,8 +101,6 @@ int checkAnagram(struct Node** head1, struct Node** head2, int s_length)
         return 1;
     }
   
-    return 0;
-
 }
 
 
@@ -127,7 +125,7 @@ void displayList(struct Node *head)
 int main()
 {
 	char s1[] = "albero";
-	char s2[] = "caraff";
+	char s2[] = "roalbe";
 
 	int s_length;  //we assume that the two linked lists have the same length
     for (s_length = 0; s1[s_length] != '\0'; ++s_length); //to calculate the length of the first string
