@@ -124,8 +124,8 @@ void displayList(struct Node *head)
 // Driver Code
 int main()
 {
-	char s1[] = "INTEGRAL";
-	char s2[] = "TRIANGLE";
+	char s1[] = "DUSTY";
+	char s2[] = "STUDY";
 
 	int s_length;  //we assume that the two linked lists have the same length
     for (s_length = 0; s1[s_length] != '\0'; ++s_length); //to calculate the length of the first string
