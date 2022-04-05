@@ -16,7 +16,7 @@ int LomutoPartition(int A[], int l, int r)
     int temp2 = A[i+1];
     A[i+1] = A[r];
     A[r] = temp2; //the new pivot is being set
-    return (i+1);
+    return (i+1); //new pivot m called in LomutoPartition
 }
 
 
@@ -89,12 +89,12 @@ int main()
     printf("Unsorted Array: \n");
     printArray(A, n);
     printf("\n");
-    // QuickSort_Lomuto(A, 0, n-1);
-    // printf("Sorted Array (Lomuto Partition): \n");
-    // printArray(A, n);
-    printf("\nSorted Array (Hoare Partition): \n");
-    QuickSort_Hoare(A, 0, n-1);
+    QuickSort_Lomuto(A, 0, n-1);
+    printf("Sorted Array (Lomuto Partition): \n");
     printArray(A, n);
+    // printf("\nSorted Array (Hoare Partition): \n");
+    // QuickSort_Hoare(A, 0, n-1);
+    // printArray(A, n);
 
     return 0;
 }
