@@ -1,11 +1,11 @@
 #include <stdio.h>
 int Left(int i)
 {
-    return 2 * i;
+    return 2 * i + 1; //because we start indexing from zero
 }
 int Right(int i)
 {
-    return 2 * i + 1;
+    return 2 * i + 2; //because we start indexing from zero
 }
 void Heapify(int A[], int i, int s)
 {
