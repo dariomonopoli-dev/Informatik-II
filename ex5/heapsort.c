@@ -5,7 +5,7 @@ int Left(int i)
 }
 int Right(int i)
 {
-    return 2 * i + 2; //because we start indexing from zero
+    return 2 * i + 2; 
 }
 void Heapify(int A[], int i, int s)
 {
