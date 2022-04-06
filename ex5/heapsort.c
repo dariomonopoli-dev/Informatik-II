@@ -42,7 +42,7 @@ void Heapsort(int A[], int n)
 {
 int s = n;
 BuildHeap(A, n);
-for (int i = n - 1; i>=1; i--)
+for (int i = n - 1; i>0; i--)
 {
     int swap = A[i];
             A[i] = A[0];
