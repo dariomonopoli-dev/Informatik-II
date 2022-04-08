@@ -76,7 +76,7 @@ struct Node *groupingLinkedList(struct Node* head)
     }
  
     return head;
-    //Θ(n) Time Complexity: the running time increases linearly with the size of the input (goes through each element)
+    //Θ(n^2) Time Complexity: we will need two loops: the outer loop (original linked list of size n). The inner loop goes through the new lists as it inserts the new items (they always have to be insrted at the end so we must always loop thorugh the end of the list)
     //O(n) Space Complexity: the amount of data stored increases linearly with the number of nodes in the list.
 
 
