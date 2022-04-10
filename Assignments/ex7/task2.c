@@ -24,23 +24,22 @@ Stack *create(unsigned int capacity) //only accepts capacities greather than 0
 
 }
 //(b) correct
-void delete(Stack *stack){
-
+void delete(Stack *stack)
+{
     free(stack->items); //frees memory for dynamic allocated array
-    free(stack); //frees memory for stack itself
-    
+    free(stack); //frees memory for stack itself  
 }
 //(c) correct
 bool is_empty(Stack *stack)
 {
-     if (stack->top == 0)
-     {
-         return true;
-     }
-     else
-     {
-         return false;
-     }
+    if (stack->top == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 //(d) correct
 bool is_full(Stack *stack)
@@ -59,7 +58,7 @@ bool is_full(Stack *stack)
 int get_capacity(Stack *stack){
      if (stack->top ==0)
      {
-            printf("This stack has no capacity");
+        printf("This stack has no capacity");
      }
      else
      {
@@ -148,13 +147,14 @@ bool is_equal(Stack *stack1, Stack *stack2)
 //(l)
 void reverse(Stack *stack)
 {
+    int length = stack->top;
     Stack *copy_stack = create(stack->capacity);
 
-    for(int i = stack->top; i>=1; i--) //pushing elements from the original task to a provisory stack (so to not lose the elements)
+    for(int i = length; i>=1; i--) //pushing elements from the original task to a provisory stack (so to not lose the elements)
     {
         push(copy_stack,stack->items[i]);
     }
-    for(int i = 1; i<=stack->top; i++) //removing elements from original stack
+    for(int i = 1; i<=length; i++) //removing elements from original stack
     {
         pop(stack);
     }
