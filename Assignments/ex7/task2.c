@@ -5,106 +5,105 @@
  * @author <Dario Alberto Monopoli>                                                      *
  ****************************************************************************/
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> //to use malloc and free functions
+#include <stdbool.h>
 typedef struct Stack {
-	unsigned int capacity;
-	int* items;
-  	int top;
+	unsigned int capacity; //size of the dinamically allocated array (how many int can it sotore)
+	int* items; //pointer to dinamically allocated array of integers
+  	int top; //tracks the number of elements in the stack
 } Stack;
 
-//(a)
-void create(Stack *stack)
+//(a) correct
+Stack *create(unsigned int capacity) //only accepts capacities greather than 0
 {
-    struct Stack* stack = (struct Stack*)malloc(sizeof(struct Stack));
-    stack->top = -1; //initial state of the stack
+    Stack *stack = malloc(sizeof(Stack));
+    stack->items = malloc(sizeof(int) * capacity);
+    stack->capacity = capacity; //initial state of the stack
+    stack->top = 0; //initial state of the stack (no elements)
+    return stack;
 
 }
-//(b) very wrong
+//(b) correct
 void delete(Stack *stack){
-    if (stack->top == NULL)
-    {
-        printf("Cannot delete an empty stack\n");
-    }
-    else{
-    free(stack);
-    }
+
+    free(stack->items); //frees memory for dynamic allocated array
+    free(stack); //frees memory for stack itself
+    
 }
 //(c) correct
-int is_empty(Stack *stack)
+bool is_empty(Stack *stack)
 {
-    if (stack->top == -1)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-
+     if (stack->top == 0)
+     {
+         return true;
+     }
+     else
+     {
+         return false;
+     }
 }
 //(d) correct
-int is_full(Stack *stack)
+bool is_full(Stack *stack)
 {
-    if (stack->top == s->items - 1)
+    if (stack->capacity == stack->top)
     {
-        return 1;
+        return true;
     }
     else
     {
-        return 0;
+        return false;
     }
 
 }
-//(e): 100% wrong-> TODO
-int get_capacity(Stack stack){
-    if (stack->top==NULL)
-    {
-        printf("This stack has no capacity");
-    }
-    else
-    {
-    printf("The capacity of the stack is: %i", stack.capacity);
-    }
-}
-//(f) to test 
-int num_items(Stack stack){
+//(e): correct
+int get_capacity(Stack *stack){
+     if (stack->top ==0)
+     {
+            printf("This stack has no capacity");
+     }
+     else
+     {
+     printf("The capacity of the stack is: %u", stack->capacity);
+     }
+ }
+//(f) works
+int num_items(Stack *stack){
     int counter = 0;
-    while(stack!=NULL)
-    {
-      counter++;
-    }
-   
-
+    for(int i = stack->top; i>=1; i--)
+        {
+        counter++;
+        }
     return counter;
 }
 //(g) correct
-void push(Stack *stack, int val) {
+void push(Stack *stack, int item) {
    if(is_full(stack)){
-   printf("Stack Overflow (stack is full), cannot push %d to the stack", val);
+   printf("Stack Overflow (stack is full), cannot push %d to the stack\n", item);
    }
    else {
         stack->top++;
-        stack->items[stack->top] = val;
-   }
+        stack->items[stack->top] = item;
+   }       
 }
-//(h) correct but not cheggt
-void pop(Stack *stack) {
+//(h) correct 
+int pop(Stack *stack) {
    if(is_empty(stack)){
-   printf("no elements are in the stack, pop operation not possible to execute");
+   printf("no elements are in the stack, pop operation not possible to execute\n");
    }
    else {
-        printf("%d is the popped item",stack->items[stack->top]);
+        int val = stack->items[stack->top];
         stack->top--;
+        return val;   
    }
 }
-//(i) to test (probably wrong)
+//(i) works
 int peek(Stack *stack)
 {
-   
+   if (!is_empty(stack)){
         return stack->items[stack->top]; //this one returns the last lmao
+   }
 }
-
-//(j) (probably wrong)
+//(j) correct
 void print(Stack *stack)
 {
     int i;
@@ -114,20 +113,67 @@ void print(Stack *stack)
     }
     else
     {
-    printf("stack is: \n");
-    for(i = num_items(stack); i>=0; i--)
-        {
-        printf("%d ", stack[i]);
-        }
+    printf("Stack: \n");
+    for(i = 1; i<=stack->top; i++)
+    {
+        printf("%d ",stack->items[i]);
+    }
     }
 }
-//(k)
-
+//(k) correct
+bool is_equal(Stack *stack1, Stack *stack2)
+{
+    bool flag = true;
+    if (num_items(stack1)!=num_items(stack2)) //two stacks can't be equal if they don't have the same amount of elements
+    {
+        flag = false;
+        return flag;
+    }
+    Stack *stack1_copy = stack1;
+    Stack *stack2_copy = stack2;
+        while (!is_empty(stack1)) // makes no difference if i choose stack2 or stack1 (since they have the same size)
+        {
+            if (peek(stack1_copy)==peek(stack2_copy))
+            {
+                pop(stack1_copy);
+                pop(stack2_copy);
+            }
+            else{
+                flag = false;
+                break;;
+            }
+        }
+    return flag;
+}
 //(l)
 void reverse(Stack *stack)
 {
+    Stack *copy_stack = create(stack->capacity);
+
+    for(int i = stack->top; i>=1; i--) //pushing elements from the original task to a provisory stack (so to not lose the elements)
+    {
+        push(copy_stack,stack->items[i]);
+    }
+    for(int i = 1; i<=stack->top; i++) //removing elements from original stack
+    {
+        pop(stack);
+    }
+
+   for(int i = 1; i<=copy_stack->top  ; i++) //pushing the elements (that are in reversed order) from the provisory stack to the original stack
+   {
+       push(stack,copy_stack->items[i]);
+   }
+   print(stack);
 }
    
 int main() {
+    Stack *stack = create(5);
+    push(stack, 2);
+    push(stack, 7);
+    push(stack, 4);
+    push(stack, 9);
+    print(stack);
+    printf("\nReversed ");
+    reverse(stack); 
   return 0;
 }
