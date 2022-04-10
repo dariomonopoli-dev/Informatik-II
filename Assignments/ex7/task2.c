@@ -150,7 +150,7 @@ void reverse(Stack *stack)
     int length = stack->top;
     Stack *copy_stack = create(stack->capacity);
 
-    for(int i = length; i>=1; i--) //pushing elements from the original task to a provisory stack (so to not lose the elements)
+    for(int i = stack->top; i>=1; i--) //pushing elements from the original task to a provisory stack (so to not lose the elements)
     {
         push(copy_stack,stack->items[i]);
     }
