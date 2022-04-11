@@ -2,7 +2,7 @@
  * University of Zurich, Informatics II, Spring Semester 2022               *
  * Exercise 7 - Task 2                                                      *
  *                                                                          *
- * @author <Dario Alberto Monopoli>                                                      *
+ * @author <Dario Alberto Monopoli>                                         *
  ****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h> //to use malloc and free functions
