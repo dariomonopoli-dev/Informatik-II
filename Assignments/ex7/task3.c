@@ -6,7 +6,7 @@ void get_span(int data[], int num_data, int* spans)
 	spans[0] = 1;
 
 	for (int i = 1; i < num_data; i++) {
-		spans[i] = 1; // Initialize span value
+		spans[i] = 1; // Initialize span value (is atleast 1)
 		for (int j = i-1; (j>=0 && data[j] <= data[i]); j--)
         {
 		    spans[i]++;
