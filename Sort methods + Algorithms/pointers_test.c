@@ -1,10 +1,5 @@
 #include <stdio.h>
-void swap(int &x, int &y)
-{
-    int temp = x;
-    x = y;
-    y = temp;
-}
+
   
 void wrong_swap (int x, int y){
     int temp = x;
@@ -15,8 +10,10 @@ int main()
 {
     int a = 19;
     int b = 91;
+    int* c  = 5;
+    int* d;
+    c = d;
     wrong_swap(a,b);
-    swap(a,b);
     printf("%d", a);
 
 

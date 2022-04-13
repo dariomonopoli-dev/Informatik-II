@@ -40,7 +40,7 @@ void InsertList(struct Node** head, int val)
     }
 
 }
-struct Node *groupingLinkedList(struct Node* head)
+struct Node *groupingLinkedList(struct Node* head) // this one returns a new node, but we can also have a void function that points to the pointer head --> void groupingLinkedList(struct Node** head)
 {
         //Initialize first nodes of even and odd lists - eskere
     struct Node *odd = head; //odd numbers have to be at beginning
