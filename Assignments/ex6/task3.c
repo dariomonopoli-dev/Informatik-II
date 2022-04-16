@@ -10,7 +10,7 @@ struct Node{
 struct Node*head;
 
 // Function to sort the list
-void bubbleSort(struct Node** head, int length)
+void bubbleSort(struct Node** head, int length) // we do not return anything
 {
 	struct Node** h;
 	int i, j, temp;
@@ -43,7 +43,7 @@ void InsertList(struct Node** head, int val)
 {
 
 //create a new node
-    struct Node *newNode = malloc(sizeof(struct Node));
+    struct Node *newNode = malloc(sizeof(struct Node)); //it is never been freed! quite problematic (would be nicer to free this memory)
     newNode->data = val;
     newNode->next = NULL;
 
@@ -83,7 +83,7 @@ int checkAnagram(struct Node** head1, struct Node** head2, int s_length)
 
 	struct Node* p1 = *head1;
 	struct Node* p2 = *head2;
-	int flag = 0;
+	int flag = 1;
 	while (p1 != NULL) {
 		if (p1->data == p2->data)
         {
@@ -92,15 +92,13 @@ int checkAnagram(struct Node** head1, struct Node** head2, int s_length)
 		}
 		else 
         {
-			return 0;
+            flag = 0;
+			return flag;
 		}
 	}
     // If one of the linked list
     // doesn't end
-    if (!p1 && !p2) {
-        return 1;
-    }
-  
+    return flag;
 }
 
 
@@ -144,9 +142,9 @@ int main()
     }
 
 	if (checkAnagram(&head1, &head2, s_length))
-		printf("Yes");
+		printf("Yes, the two strings are anagrams");
 	else
-		printf("No");
+		printf("No, the two strigs are not anagrams");
 
 	return 0;
 }
