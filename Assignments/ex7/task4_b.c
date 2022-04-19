@@ -111,7 +111,7 @@ bool validateStackSequence(int In[], int Out[], int len){
             j++;
         }   
     }
-    if(is_empty(stack)) //if the arrays
+    if(is_empty(stack)) //if the sequence is possible then the stack has no element at the end
     {
         return true;
     }

@@ -17,7 +17,7 @@ void insertion_sort(int a[], int length)
     {
         int key = a[i]; //i memorize the a[i] as key
         int j = i-1; //prendi in considerazione l'array da j a 2
-        while (j >= 0 && a[j] > key)
+        while (j >= 0 && key <  a[j])
         {
             a[j+1] = a[j];
             j--;
