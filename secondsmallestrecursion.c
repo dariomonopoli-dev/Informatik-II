@@ -47,7 +47,7 @@ int main()
 {
     int A[] = {23,1,5,4,6,8};
     int length = sizeof(A)/sizeof(A[0]);
-    int result = get_second(A, length -1, -1, -1);
+    int result = get_second(A, length -1, -1, -1); //works since elements in the array all have to be n > 1 (positive)
     printf("The second smallest element in the array is: %d", result);
 
 
