@@ -10,16 +10,18 @@ struct TreeNode* create(int item)
 {
     struct TreeNode* temp = (struct TreeNode*)malloc(sizeof(struct TreeNode*));
     temp->val = item;
-    temp -> left = temp -> right = NULL;
+    temp -> left = NULL;
+    temp -> right = NULL;
     return temp;
 }
-struct TreeNode* TreeMin(struct TreeNode* node)
+struct TreeNode* TreeMin(struct TreeNode* root)
 {
+    struct TreeNode* temp = root;
     //we search the smallest element in the subtree (left-most element)
-    while (node->left != NULL)
-        node = node->left;
+    while (temp->left != NULL)
+        temp = temp->left;
  
-    return node;
+    return temp;
 }
 // Find height of a tree, defined by the root node
 int tree_height(struct TreeNode* root) {
@@ -65,46 +67,85 @@ struct TreeNode* search(struct TreeNode* root, int val)
     }
 }
 
-struct TreeNode* delete(struct TreeNode* root, int val)
+struct TreeNode* delete(struct TreeNode* root, int item)
 {
-    if (root = NULL)
-    {
-        return root;
-    }
-    //if the val to be deleted is smaller than the root's val, then it lies in the left subtree
-    if (val < root->val)
-    {
-        root->left = delete(root->left, val);
-    }
+    //4 Cases:
+    //1) The node we want to delete is a leaf node (it has no child)
+    //2) The node we want to delete has only a right child
+    //3) The node we want to delete has only a left child
+    //4) The node we want to delete has both children
 
-    //if the val to be deleted is greater than the root's val, then it lies in the right subtree
-    else if (val > root->val)
-        root->right = delete(root->right, val);
-
-    //if the value is the same as the root's value, then this is the node that needs to be deleted
+    //base case
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    //we search the node that we want to delete
+    if(root->val < item)
+        root->right = delete(root->right, item);
+  
+    else if(root->val > item)
+        {
+            root->left = delete(root->left, item);
+        }
     else
     {
-       // node with only one child or no child (we just have to delete the root)
-        if (root->left == NULL) {
-            struct TreeNode* temp = root->right;
+        /*
+         * Case 1: Leaf node. Both left and right reference is NULL
+         * replace the node with NULL by returning NULL to the calling pointer.
+         * free the node
+         */
+        if(root->left == NULL && root->right == NULL)
+        {
             free(root);
-            root = temp;
+            return NULL;
         }
-        else if (root->right == NULL) {
-            struct TreeNode* temp = root->left;
+        /*
+         * Case 2: Node has right child.
+         * replace the root node with root->right and free the right node
+         */
+        else if(root->left == NULL)
+        {
+            struct node *temp = root->right;
             free(root);
-            root = temp;
+            return temp;
+        }
+        /*
+         * Case 3: Node has left child.
+         * replace the node with root->left and free the left node
+         */
+        else if(root->right == NULL)
+        {
+            struct node *temp = root->left;
+            free(root);
+            return temp;
+        }
+        /*
+         * Case 4: Node has both left and right children.
+         * Find the min value in the right subtree
+         * replace node value with min.
+         * And again call the remove function to delete the node which has the min value.
+         * Since we find the min value from the right subtree call the remove function with root->right.
+         */
+        else
+        {
+            int InorderSuccessor = TreeMin(root->right);
+            root->val = InorderSuccessor;
+            root->right = delete(root->right, InorderSuccessor);
         }
 
-        //node with two children: get the inorder successor (smallest in the right subtree)
-        struct TreeNode* temp = TreeMin(root->right);
-
-        //we copy the inorder successor's value to this node
-        root->val = temp->val;
-
-        // Delete the inorder successor
-        root->right = delete(root->right, temp->val);
     }
+
+    return root;
+    
+    
+    //Further explanation to the different cases:
+    //Case 1: if the node is leaf (both left and right child are NULL), we remove the node directly and free its memory
+    //Case 2: If the node has only a right child (and left child is NULL), make the node point to the right node and free the node (= copy the value of the child to the node)
+    //Case 3: If the node has only  a left child (and right child is NULL), make the node point to the left node and free the node (= copy the value of the child to the node)
+    //Case 4: If the node has noth left and right child: find the inorder successor and set the value of the node we want to delete as the inorder successor and then we delete the inorder successor
+
+
 }
 void print_level(struct TreeNode* root, int level_no) {
    
@@ -115,16 +156,17 @@ void print_level(struct TreeNode* root, int level_no) {
     if (level_no == 0) {
         //top of tree (we just have to print the root note)
       
-        printf("%d -- ", root->val);
+        printf("%d", root->val);
     }
     else{
         print_level(root->left, level_no - 1);
+        printf(" -- ");
         print_level(root->right, level_no - 1);
         
     }
  
 }
-void printTree(struct TreeNode* root)
+void printTree(struct TreeNode* root) //doesn't work if we delete an element
 {
     
     int height = tree_height(root);
@@ -156,21 +198,10 @@ int main()
     printf("Inorder traversal of the given tree: \n");
     printTree(root);
  
-    // printf("\nDelete 20\n");
-    // root = deleteNode(root, 20);
-    // printf("Inorder traversal of the modified tree \n");
-    // inorder(root);
- 
-    // printf("\nDelete 30\n");
-    // root = deleteNode(root, 30);
-    // printf("Inorder traversal of the modified tree \n");
-    // inorder(root);
- 
-    // printf("\nDelete 50\n");
-    // root = deleteNode(root, 50);
-    // printf("Inorder traversal of the modified tree \n");
-    // inorder(root);
-
+    printf("Delete 20\n");
+    root = delete(root, 20);
+    printf("Inorder traversal of the modified tree \n");
+    printTree(root);
 
 
     return 0;
