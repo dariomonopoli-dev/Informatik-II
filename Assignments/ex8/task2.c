@@ -106,7 +106,7 @@ struct TreeNode* delete(struct TreeNode* root, int item)
          */
         else if(root->left == NULL)
         {
-            struct node *temp = root->right;
+            struct TreeNode *temp = root->right;
             free(root);
             return temp;
         }
@@ -116,7 +116,7 @@ struct TreeNode* delete(struct TreeNode* root, int item)
          */
         else if(root->right == NULL)
         {
-            struct node *temp = root->left;
+            struct TreeNode *temp = root->left;
             free(root);
             return temp;
         }
@@ -198,10 +198,10 @@ int main()
     printf("Inorder traversal of the given tree: \n");
     printTree(root);
  
-    printf("Delete 20\n");
-    root = delete(root, 20);
-    printf("Inorder traversal of the modified tree \n");
-    printTree(root);
+    // printf("Delete 20\n");
+    // root = delete(root, 20);
+    // printf("Inorder traversal of the modified tree \n");
+    // printTree(root);
 
 
     return 0;
