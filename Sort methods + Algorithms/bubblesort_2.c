@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+//modified bubble sort: at each iteration of the outer loop the smallest element of the subarray is moved to the left.
 void bubblesort_2(int a[], int length);
 int main() 
 {
